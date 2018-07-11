@@ -1,0 +1,9 @@
+[user]
+	name = <your-user-name>
+	email = <your-email>
+[color]
+	ui = true
+[core]
+	excludesfile = /home/your-user-name/.gitignore_global
+[alias]
+	logg = log --pretty=format:\"%C(yellow)%h %Creset%ad :: %s%C(blue)%d [%cn]\" --date=short
