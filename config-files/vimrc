@@ -1,0 +1,79 @@
+"set term=ansi
+"syntax on
+"colorscheme delek
+
+" Use Vim settings, rather then Vi settings (much better!). 
+set nocompatible
+
+" .vimrc file
+set term=ansi
+
+" enable syntax highlighting
+syntax on
+" color scheme
+colorscheme delek
+set t_Co=256
+
+" auto indent
+set autoindent
+
+" I like 2 spaces for indenting
+set shiftwidth=2
+
+" show line numbers
+" set number
+
+" set al *.md files to markdown filetype
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
+" wrap lines to 80 characters when file extension is *.md
+au BufRead,BufNewFile *.md setlocal textwidth=78
+
+" In text files, always limit the width of text to 78 characters
+autocmd BufRead *.txt set tw=78
+
+" Tab number of spaces
+set tabstop=4
+
+" show position of cursor
+set ruler
+
+" showmatch: Show the matching bracket for the last ')'?
+set showmatch
+
+" Set status line
+"set statusline=[%02n]\ %f\ %(\[%M%R%H]%)%=\ %4l,%02c%2V\ %P%*
+set statusline=%t       "tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%y      "filetype
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+hi StatusLine ctermbg=42/42/42 ctermfg=black
+
+" Always display a status line at the bottom of the window
+set laststatus=2
+
+set backspace=indent,eol,start  " backspace for dummys
+set linespace=0                 " No extra spaces between rows
+set incsearch                   " find as you type search
+set hlsearch                    " highlight search terms
+set winminheight=0              " windows can be 0 line high 
+set ignorecase                  " case insensitive search
+set smartcase                   " case sensitive when uc present
+set wildmenu                    " show list instead of just completing
+set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
+set scrolljump=1                " lines to scroll when cursor leaves screen
+set scrolloff=1                 " minimum lines to keep above and below cursor
+" set foldenable                  " auto fold code
+set gdefault                    " the /g flag on :s substitutions by default
+set paste						" avoid auto comment
+au FileType gitcommit setlocal textwidth=72 " sets wrapping of lines to 72 characters for git commit messages
+"set list
+" set listchars=tab:>.,trail:.,extends:\#,nbsp:. " Highlight problematic whitespace
