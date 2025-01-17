@@ -8,13 +8,13 @@ assignees: ''
 ---
 
 # App request
-
 Please fill the fields below:
 
-**Your marbits user name:**  
-**App name:**  
-**App URL:**  
-**App version (if known or need a specific one):**  
-**Main publication (if known):**  
+- **Your marbits user name:**  
+- **App name:**  
+- **App URL:**  
+- **App version (if known or need a specific one):**   
+- **Main publication (if known):**  
+
 ---
 **Notes:**
