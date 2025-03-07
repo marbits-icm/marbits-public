@@ -18,7 +18,7 @@ body:
         - "question"
         - "documentation"
         - "random"
-        - "panic"
+        - "💣 panic"
 
   - type: textarea
     id: issue_description
