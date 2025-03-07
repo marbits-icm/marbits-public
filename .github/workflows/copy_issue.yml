@@ -22,13 +22,25 @@ jobs:
           # Output the labels and assignees for use in the next step
           echo "::set-output name=labels::$LABELS"
           echo "::set-output name=assignees::$ASSIGNEES"
-          
+      
+      - name: Create issue content file
+        id: create_content_file
+        run: |
+          # Create a temporary file to store the issue body
+          echo "# ${{ github.event.issue.title }}" > issue_content.md
+          echo "" >> issue_content.md
+          echo "${{ github.event.issue.body }}" >> issue_content.md
+
       - name: Copy issue content to target repository
         uses: peter-evans/create-issue-from-file@v3
         with:
           title: ${{ github.event.issue.title }}
-          body: ${{ github.event.issue.body }}
           labels: ${{ steps.issue_details.outputs.labels }} # Carry over labels
           assignees: ${{ steps.issue_details.outputs.assignees }} # Carry over assignees
+          content-filepath: issue_content.md  # Use the file for issue body content
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: marbits-icm/marbits-admin  # Replace with the target repo's owner and name
+
+      - name: Clean up temporary file
+        run: |
+          rm issue_content.md  # Clean up the temporary file after use
