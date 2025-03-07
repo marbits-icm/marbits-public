@@ -1,0 +1,55 @@
+name: "🚀 App Request"
+description: "Use this template to request a new app in the cluster"
+title: "[App Request] "
+labels:
+  - "installMe"
+  - "pending"
+  
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🚀 App Request  
+        Please provide the necessary details below.  
+
+  - type: input
+    id: marbits_user
+    attributes:
+      label: "👤 Your Marbits Username"
+      placeholder: "Enter your marbits username"
+
+  - type: input
+    id: app_name
+    attributes:
+      label: "🖥️ App Name"
+      placeholder: "Enter the app name"
+
+  - type: input
+    id: app_url
+    attributes:
+      label: "🔗 App URL"
+      placeholder: "Enter the official app URL"
+
+  - type: input
+    id: app_version
+    attributes:
+      label: "📦 App Version"
+      description: "Enter a specific version if required (or leave blank for the latest)"
+      placeholder: "Example: 2.3.1"
+
+  - type: input
+    id: main_publication
+    attributes:
+      label: "📄 Main Publication"
+      description: "Provide a reference paper if available"
+      placeholder: "Enter DOI, title, or link"
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "📝 Additional Notes"
+      description: "Any other relevant information?"
+      placeholder: "Example: This app is essential for metagenomics analysis."
+      render: markdown
