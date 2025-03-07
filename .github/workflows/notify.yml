@@ -13,13 +13,17 @@ jobs:
       - name: Get Contributors
         id: contributors
         run: |
-          CONTRIBUTORS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/contributors" | jq -r '.[].login' | sed 's/^/@/')
-          echo "contributors=$CONTRIBUTORS" >> $GITHUB_ENV
+            CONTRIBUTORS=$(curl -s -H "Authorization: token ${{ secrets.CATEGORY_ID }}" \
+      "https://api.github.com/repos/${{ github.repository }}/contributors" | jq -r '.[].login')
+    
+    # Format mentions correctly (space-separated instead of newline)
+    CONTRIBUTORS=$(echo "$CONTRIBUTORS" | awk '{printf "@%s ", $0}')
+    
+    echo "contributors=$CONTRIBUTORS" >> $GITHUB_ENV
 
       - name: Create Discussion Post
         run: |
-          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          curl -X POST -H "Authorization: token ${{ secrets.CATEGORY_ID }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/${{ github.repository }}/discussions \
             -d '{
