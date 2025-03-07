@@ -3,7 +3,7 @@ description: "Use this template to request Marbits access for a new user."
 title: "[New User] "
 labels:
   - "newUser"
-assignees: [@paubach711]
+assignees: "@paubach711"
 
 body:
   - type: markdown
