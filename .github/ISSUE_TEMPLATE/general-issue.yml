@@ -1,0 +1,30 @@
+name: "📝 Blank Issue"
+description: "Open a general issue with a custom label."
+title: "[General Issue] "
+labels: []
+  - "pending"
+assignees: []
+
+body:
+  - type: dropdown
+    id: issue_label
+    attributes:
+      label: "🏷️ Issue Category"
+      description: "Select the most relevant label for this issue."
+      options:
+        - "bug"
+        - "feature request"
+        - "marbits"
+        - "smart"
+        - "question"
+        - "documentation"
+        - "random"
+        - "panic"
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: "📝 Issue Description"
+      description: "Describe your issue in detail."
+      placeholder: "Enter your description here..."
+      render: markdown
