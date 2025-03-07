@@ -1,0 +1,65 @@
+name: "👤 New User Request"
+description: "Use this template to request Marbits access for a new user."
+title: "[New User] "
+labels:
+  - "newUser"
+assignees: [@paubach711]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 👤 New User Request  
+        Please provide the necessary details below.
+
+  - type: input
+    id: full_name
+    attributes:
+      label: "📝 Full Name"
+      placeholder: "Example: Rosalind Franklin"
+
+  - type: input
+    id: email
+    attributes:
+      label: "📧 E-mail"
+      placeholder: "rosalind@icm.csic.es"
+
+  - type: input
+    id: supervisor
+    attributes:
+      label: "👨‍🏫 Supervisor"
+      placeholder: "Example: Marie Skłodowska"
+
+  - type: input
+    id: slurm_account
+    attributes:
+      label: "💻 Slurm Account"
+      placeholder: "Enter Slurm account name (emm1...)"
+
+  - type: input
+    id: contract_type
+    attributes:
+      label: "📄 Contract Type"
+      placeholder: "Example: Internship, PhD, Postdoc, Staff"
+
+  - type: input
+    id: contract_end_date
+    attributes:
+      label: "📅 Contract End Date"
+      description: "Specify the expected end date of the contract."
+      placeholder: "Example: 31/12/2025"
+
+  - type: input
+    id: additional_groups
+    attributes:
+      label: "👥 Additional Groups"
+      description: "List any additional groups the user should be part of."
+      placeholder: "Example: tara, ecomics..."
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "📝 Additional Notes"
+      description: "Any other relevant information?"
+      placeholder: "Example: User needs access to specific GPU nodes."
+      render: markdown
