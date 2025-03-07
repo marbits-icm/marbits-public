@@ -3,6 +3,7 @@ description: "Use this template to request Marbits access for a new user."
 title: "[New User] "
 labels:
   - "newUser"
+  - "pending"
 assignees: "@paubach711"
 
 body:
