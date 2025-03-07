@@ -30,7 +30,7 @@ jobs:
         id: create_content_file
         run: |
           # Create a temporary file to store the issue body
-          echo "[Original Issue](${{ env.ORIGINAL_ISSUE_URL }})" > issue_content.md  # Adds the link to the original issue
+          echo "**Go to the [issue at marbits-public issue board](${{ env.ORIGINAL_ISSUE_URL }})**" > issue_content.md  # Adds the link to the original issue
           echo "# ${{ github.event.issue.title }}" >> issue_content.md
           echo "" >> issue_content.md
           echo "${{ github.event.issue.body }}" >> issue_content.md
