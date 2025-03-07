@@ -1,0 +1,34 @@
+name: "Copy Issue to Another Repo"
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  copy_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get issue details from source repo
+        id: issue_details
+        run: |
+          # Get the labels and assignees from the source issue using GitHub API
+          ISSUE_URL="https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}"
+          ISSUE_DATA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" $ISSUE_URL)
+          
+          # Extract labels and assignees
+          LABELS=$(echo $ISSUE_DATA | jq -r '.labels | map(.name) | join(",")')
+          ASSIGNEES=$(echo $ISSUE_DATA | jq -r '.assignees | map(.login) | join(",")')
+
+          # Output the labels and assignees for use in the next step
+          echo "::set-output name=labels::$LABELS"
+          echo "::set-output name=assignees::$ASSIGNEES"
+          
+      - name: Copy issue content to target repository
+        uses: peter-evans/create-issue-from-file@v3
+        with:
+          title: ${{ github.event.issue.title }}
+          body: ${{ github.event.issue.body }}
+          labels: ${{ steps.issue_details.outputs.labels }} # Carry over labels
+          assignees: ${{ steps.issue_details.outputs.assignees }} # Carry over assignees
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: marbits-icm/marbits-admin  # Replace with the target repo's owner and name
