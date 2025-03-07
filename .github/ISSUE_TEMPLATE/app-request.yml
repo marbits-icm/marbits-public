@@ -1,6 +1,6 @@
 name: "🚀 App Request"
 description: "Use this template to request a new app in the cluster"
-title: ""
+title: []
 labels:
   - "installMe"
   - "pending"
