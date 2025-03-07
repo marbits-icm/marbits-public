@@ -13,7 +13,7 @@ jobs:
         run: |
           # Get the labels and assignees from the source issue using GitHub API
           ISSUE_URL="https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}"
-          ISSUE_DATA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" $ISSUE_URL)
+          ISSUE_DATA=$(curl -s -H "Authorization: Bearer ${{ secrets.TARGET_REPO_TOKEN }}" $ISSUE_URL)
           
           # Extract labels and assignees
           LABELS=$(echo $ISSUE_DATA | jq -r '.labels | map(.name) | join(",")')
@@ -38,7 +38,7 @@ jobs:
           labels: ${{ steps.issue_details.outputs.labels }} # Carry over labels
           assignees: ${{ steps.issue_details.outputs.assignees }} # Carry over assignees
           content-filepath: issue_content.md  # Use the file for issue body content
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TARGET_REPO_TOKEN }}
           repository: marbits-icm/marbits-admin  # Replace with the target repo's owner and name
 
       - name: Clean up temporary file
