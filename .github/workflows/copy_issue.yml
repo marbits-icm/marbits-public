@@ -30,12 +30,12 @@ jobs:
         id: create_content_file
         run: |
           # Create a temporary file to store the issue body
-          echo "# ${{ github.event.issue.title }}" > issue_content.md
+          echo "[Original Issue](${{ env.ORIGINAL_ISSUE_URL }})" > issue_content.md  # Adds the link to the original issue
+          echo "# ${{ github.event.issue.title }}" >> issue_content.md
           echo "" >> issue_content.md
           echo "${{ github.event.issue.body }}" >> issue_content.md
           # Add the original issue URL as a clickable link
           echo "" >> issue_content.md
-          echo "[Original Issue](${{ env.ORIGINAL_ISSUE_URL }})" >> issue_content.md  # Adds the link to the original issue
 
       - name: Copy issue content to target repository
         uses: peter-evans/create-issue-from-file@v3
