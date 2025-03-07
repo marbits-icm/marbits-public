@@ -13,15 +13,15 @@ jobs:
         run: |
           # Get the labels and assignees from the source issue using GitHub API
           ISSUE_URL="https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}"
-          ISSUE_DATA=$(curl -s -H "Authorization: Bearer ${{ secrets.TARGET_REPO_TOKEN }}" $ISSUE_URL)
+          ISSUE_DATA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" $ISSUE_URL)
           
           # Extract labels and assignees
           LABELS=$(echo $ISSUE_DATA | jq -r '.labels | map(.name) | join(",")')
           ASSIGNEES=$(echo $ISSUE_DATA | jq -r '.assignees | map(.login) | join(",")')
 
-          # Output the labels and assignees for use in the next step
-          echo "::set-output name=labels::$LABELS"
-          echo "::set-output name=assignees::$ASSIGNEES"
+          # Write to environment files instead of using set-output
+          echo "LABELS=$LABELS" >> $GITHUB_ENV
+          echo "ASSIGNEES=$ASSIGNEES" >> $GITHUB_ENV
       
       - name: Create issue content file
         id: create_content_file
@@ -35,10 +35,10 @@ jobs:
         uses: peter-evans/create-issue-from-file@v3
         with:
           title: ${{ github.event.issue.title }}
-          labels: ${{ steps.issue_details.outputs.labels }} # Carry over labels
-          assignees: ${{ steps.issue_details.outputs.assignees }} # Carry over assignees
+          labels: ${{ env.LABELS }} # Use environment variable for labels
+          assignees: ${{ env.ASSIGNEES }} # Use environment variable for assignees
           content-filepath: issue_content.md  # Use the file for issue body content
-          token: ${{ secrets.TARGET_REPO_TOKEN }}
+          token: ${{ secrets.TARGET_REPO_TOKEN }}  # Use the PAT secret here
           repository: marbits-icm/marbits-admin  # Replace with the target repo's owner and name
 
       - name: Clean up temporary file
