@@ -22,7 +22,10 @@ jobs:
           # Write to environment files instead of using set-output
           echo "LABELS=$LABELS" >> $GITHUB_ENV
           echo "ASSIGNEES=$ASSIGNEES" >> $GITHUB_ENV
-      
+          # Save the original issue URL for later use
+          ORIGINAL_ISSUE_URL="https://github.com/${{ github.repository }}/issues/${{ github.event.issue.number }}"
+          echo "ORIGINAL_ISSUE_URL=$ORIGINAL_ISSUE_URL" >> $GITHUB_ENV
+
       - name: Create issue content file
         id: create_content_file
         run: |
@@ -30,13 +33,16 @@ jobs:
           echo "# ${{ github.event.issue.title }}" > issue_content.md
           echo "" >> issue_content.md
           echo "${{ github.event.issue.body }}" >> issue_content.md
+          # Add the original issue URL as a clickable link
+          echo "" >> issue_content.md
+          echo "[Original Issue](${{ env.ORIGINAL_ISSUE_URL }})" >> issue_content.md  # Adds the link to the original issue
 
       - name: Copy issue content to target repository
         uses: peter-evans/create-issue-from-file@v3
         with:
           title: ${{ github.event.issue.title }}
-          labels: ${{ env.LABELS }} # Use environment variable for labels
-          assignees: ${{ env.ASSIGNEES }} # Use environment variable for assignees
+          labels: ${{ env.LABELS }}  # Use environment variable for labels
+          assignees: ${{ env.ASSIGNEES }}  # Use environment variable for assignees
           content-filepath: issue_content.md  # Use the file for issue body content
           token: ${{ secrets.TARGET_REPO_TOKEN }}  # Use the PAT secret here
           repository: marbits-icm/marbits-admin  # Replace with the target repo's owner and name
