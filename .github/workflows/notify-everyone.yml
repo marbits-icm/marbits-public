@@ -21,7 +21,7 @@ jobs:
           secure: true
           username: ${{ secrets.SMTP_USER }}
           password: ${{ secrets.SMTP_PASS }}
-          subject: "🤖 New issue: ${{ github.event.issue.title }}"
+          subject: "New issue: ${{ github.event.issue.title }}"
           body: |
             ‼️ There's a new issue labelled 'everyone'.
 
