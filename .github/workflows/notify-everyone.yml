@@ -1,0 +1,32 @@
+name: Notify All Collaborators When Label "everyone" is Added
+
+on:
+  issues:
+    types: [labeled]  # Se activa cuando se añade una etiqueta a un issue.
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if label is "everyone"
+        if: contains(github.event.label.name, 'everyone')
+        run: echo "Etiqueta 'everyone' detectada. Enviando notificación por email."
+
+      - name: Send Email via SMTP
+        if: contains(github.event.label.name, 'everyone')  # Solo se ejecuta si la etiqueta es "everyone"
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtpin.csic.es  # Cambia esto por el servidor SMTP de tu correo
+          server_port: 465  # Usa 465 si el servidor requiere SSL
+          username: ${{ secrets.SMTP_USER }}  # Tu correo institucional
+          password: ${{ secrets.SMTP_PASS }}  # La contraseña o clave de aplicación
+          subject: "Nuevo Issue: ${{ github.event.issue.title }}"
+          body: |
+            🔔 Se ha etiquetado un nuevo issue con 'TODOS'.
+
+            Título: ${{ github.event.issue.title }}
+            Descripción: ${{ github.event.issue.body }}
+            Ver más: ${{ github.event.issue.html_url }}
+
+          to: "pablo.sanchez@gmail.com"  # Lista de destinatarios
+          from: "GitHub Bot <pablosanchez@icm.csic.es>"
