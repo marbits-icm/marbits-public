@@ -29,5 +29,5 @@ jobs:
             Descripción: ${{ github.event.issue.body }}
             Ver más: ${{ github.event.issue.html_url }}
 
-          to: "pablo.sanchez@gmail.com, pablosanchez@gmail.com"
+          to: ${{ secrets.EMAIL_RECIPIENTS }}
           from: "GitHub Bot <pablo.sanchez@gmail.com>"
