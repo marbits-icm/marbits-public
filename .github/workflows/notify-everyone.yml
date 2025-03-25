@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check if label is "everyone"
         if: contains(github.event.label.name, 'everyone')
-        run: echo "Etiqueta 'everyone' detectada. Enviando notificación por email."
+        run: echo "Label 'everyone' detected. Sending mail notification."
 
       - name: Send Email via Gmail SMTP
         if: contains(github.event.label.name, 'everyone')
@@ -21,13 +21,13 @@ jobs:
           secure: true
           username: ${{ secrets.SMTP_USER }}
           password: ${{ secrets.SMTP_PASS }}
-          subject: "Nuevo Issue: ${{ github.event.issue.title }}"
+          subject: "🤖 New issue: ${{ github.event.issue.title }}"
           body: |
-            🔔 Se ha etiquetado un nuevo issue con 'TODOS'.
+            ‼️ There's a new issue labelled 'everyone'.
 
-            Título: ${{ github.event.issue.title }}
-            Descripción: ${{ github.event.issue.body }}
-            Ver más: ${{ github.event.issue.html_url }}
+            Title: ${{ github.event.issue.title }}
+            Description: ${{ github.event.issue.body }}
+            See more: ${{ github.event.issue.html_url }}
 
           to: ${{ secrets.EMAIL_RECIPIENTS }}
-          from: "GitHub Bot <pablo.sanchez@gmail.com>"
+          from: "🤖 Marbits Bot <marbits.icm@gmail.com>"
