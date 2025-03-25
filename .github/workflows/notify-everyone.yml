@@ -17,7 +17,7 @@ jobs:
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtpin.csic.es  # Cambia esto por el servidor SMTP de tu correo
-          server_port: 465  # Usa 465 si el servidor requiere SSL
+          server_port: 587  # Usa 465 si el servidor requiere SSL
           username: ${{ secrets.SMTP_USER }}  # Tu correo institucional
           password: ${{ secrets.SMTP_PASS }}  # La contraseña o clave de aplicación
           subject: "Nuevo Issue: ${{ github.event.issue.title }}"
