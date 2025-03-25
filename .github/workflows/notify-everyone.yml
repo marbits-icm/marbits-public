@@ -12,14 +12,15 @@ jobs:
         if: contains(github.event.label.name, 'everyone')
         run: echo "Etiqueta 'everyone' detectada. Enviando notificación por email."
 
-      - name: Send Email via SMTP
-        if: contains(github.event.label.name, 'everyone')  # Solo se ejecuta si la etiqueta es "everyone"
+      - name: Send Email via Gmail SMTP
+        if: contains(github.event.label.name, 'everyone')
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtpin.csic.es  # Cambia esto por el servidor SMTP de tu correo
-          server_port: 587  # Usa 465 si el servidor requiere SSL
-          username: ${{ secrets.SMTP_USER }}  # Tu correo institucional
-          password: ${{ secrets.SMTP_PASS }}  # La contraseña o clave de aplicación
+          server_address: smtp.gmail.com
+          server_port: 587
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
           subject: "Nuevo Issue: ${{ github.event.issue.title }}"
           body: |
             🔔 Se ha etiquetado un nuevo issue con 'TODOS'.
@@ -28,5 +29,5 @@ jobs:
             Descripción: ${{ github.event.issue.body }}
             Ver más: ${{ github.event.issue.html_url }}
 
-          to: "pablo.sanchez@gmail.com"  # Lista de destinatarios
-          from: "GitHub Bot <pablosanchez@icm.csic.es>"
+          to: "pablo.sanchez@gmail.com, pablosanchez@gmail.com"
+          from: "GitHub Bot <pablo.sanchez@gmail.com>"
