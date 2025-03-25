@@ -1,0 +1,33 @@
+name: Notify All Collaborators When Label "everyone" is Added
+
+on:
+  discussion:
+    types: [labeled]  # Trigger when a label is added to a discussion.
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if label is "everyone"
+        if: contains(github.event.label.name, 'everyone')
+        run: echo "Label 'everyone' detected. Sending email."
+
+      - name: Send Email via Gmail SMTP
+        if: contains(github.event.label.name, 'everyone')
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: "New Discussions Thread: ${{ github.event.discussion.title }}"
+          body: |
+            ‼️ There's a new Discussion labelled 'everyone'.
+
+            Title: ${{ github.event.discussion.title }}
+            Description: ${{ github.event.discussion.body }}
+            See more: ${{ github.event.discussion.html_url }}
+
+          to: ${{ secrets.EMAIL_RECIPIENTS }}  # Emails are now hidden!
+          from: "🤖 Marbits Bot <marbits.icm@gmail.com>"
