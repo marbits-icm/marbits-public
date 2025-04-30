@@ -27,7 +27,7 @@ jobs:
 
             Title: ${{ github.event.issue.title }}
             Description: ${{ github.event.issue.body }}
-            See more: ${{ github.event.issue.html_url }}
+            See more and consider clicking the SUBSCRIBE button to get more updates about this issue: ${{ github.event.issue.html_url }}
 
           to: ${{ secrets.EMAIL_RECIPIENTS }}
           from: "🤖 Marbits Bot <marbits.icm@gmail.com>"
