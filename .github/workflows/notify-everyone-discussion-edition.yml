@@ -27,7 +27,7 @@ jobs:
 
             Title: ${{ github.event.discussion.title }}
             Description: ${{ github.event.discussion.body }}
-            See more: ${{ github.event.discussion.html_url }}
+            See more and consider clicking the SUBSCRIBE button to get more updates about this thread: ${{ github.event.discussion.html_url }}
 
           to: ${{ secrets.EMAIL_RECIPIENTS }}  # Emails are now hidden!
           from: "🤖 Marbits Bot <marbits.icm@gmail.com>"
